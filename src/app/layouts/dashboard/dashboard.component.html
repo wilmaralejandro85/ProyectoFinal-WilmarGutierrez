@@ -1,0 +1,33 @@
+<mat-drawer-container class="dashboard-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <p>Auto-resizing sidenav</p>
+      @if (showFiller) {
+        <p>Lorem, ipsum dolor sit amet consectetur.</p>
+      }
+      <button (click)="showFiller = !showFiller" mat-raised-button appLetra20>
+        Alumnos
+      </button>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+        <mat-toolbar color="primary">
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+              <mat-icon>menu</mat-icon>
+            </button>
+            <span appLetra20>Proyecto Final por Wilmar Alejandro Gutierrez Ramirez</span>
+            <span class="example-spacer"></span>
+            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+              <mat-icon>favorite</mat-icon>
+            </button>
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+              <mat-icon>share</mat-icon>
+            </button>
+          </mat-toolbar>
+
+      <div class="p-3">
+        <app-alumnos></app-alumnos>
+      </div>
+          
+    </div>
+  
+  </mat-drawer-container>
