@@ -1,13 +1,17 @@
 import { Component } from '@angular/core';
 import { Alumnos } from './models';
 import { AlumnoPipe } from '../../../../shared/full-name.pipe';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 @Component({
   selector: 'app-alumnos',
   templateUrl: './alumnos.component.html',
   styleUrl: './alumnos.component.scss'
 })
 export class AlumnosComponent {
-  displayedColumns: string[] = ['id','nombreCompleto', 'edad', 'correo', 'celular'];
+  passEdit: Alumnos | null = null;
+  
+  displayedColumns: string[] = ['id','nombreCompleto', 'edad', 'correo', 'celular', 'acciones'];
   dataSource : Alumnos[]=[
   {id: 1705884607891, nombres: 'Wilmar Alejandro', apellidos:'Gutierrez Ramirez',edad: 38, correo: 'wilmaralejandro85@hotmail.com', celular:'3184249076'},
   {id: 1705884607456, nombres: 'Jhovany Hernesto', apellidos:'Pedraza Lopez',edad: 35, correo: 'jhonvanypedra@gmail.com', celular:'3114504034'},
@@ -18,11 +22,51 @@ export class AlumnosComponent {
   
     ];
 
+    constructor( private _snackBar: MatSnackBar){
+
+    }
    
     onAlumnoSubmitted(ev: Alumnos): void{
       this.dataSource = [...this.dataSource, {...ev, id: new Date().getTime()}];
-
+      
     }
 
-    
+    deleteStudent(id: number): Alumnos[] {
+      const dataSourceFiltered = this.dataSource.filter(el => el.id != id)
+      this.dataSource = [...dataSourceFiltered];
+      return this.dataSource
+    }
+
+    updateList() {
+      console.log("UPDATELIST")
+      this.dataSource = [...this.getAllStudents()]
+      
+    }
+
+    onStudentDelete(id: number): void {
+      this.deleteStudent(id);
+      this.updateList()
+      this.mostrarAlerta("Alumno fue eliminado con exito","Bien!");
+    }
+
+    getAllStudents() {
+      return this.dataSource
+    }
+
+    updateStudent(alumnos: Alumnos) {
+      const index = this.dataSource.findIndex(el => el.id == alumnos.id)
+      this.dataSource[index] = alumnos;
+    }
+
+    onPressStudentEdit(alumno:Alumnos) {
+      this.passEdit = alumno
+    }
+
+    mostrarAlerta(msg: string, accion: string) {
+      this._snackBar.open(msg, accion,{
+        horizontalPosition:"end",
+        verticalPosition:"top",
+        duration: 3000
+      });
+    }
 }

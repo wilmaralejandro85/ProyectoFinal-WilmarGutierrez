@@ -39,6 +39,22 @@
         <th mat-header-cell *matHeaderCellDef appLetra20> Celular </th>
         <td mat-cell *matCellDef="let element"> {{element.celular}} </td>
       </ng-container>
+
+       <!-- Acciones Column -->
+       <ng-container matColumnDef="acciones">
+        <th mat-header-cell *matHeaderCellDef style="width: 150px;"></th>
+        <td mat-cell *matCellDef="let element">
+          
+          <button mat-icon-button color="primary" (click)="onPressStudentEdit(element)">
+            <mat-icon>edit</mat-icon>
+          </button>
+
+          <button mat-icon-button color="warn" (click)="onStudentDelete(element.id)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
