@@ -9,12 +9,14 @@ import { UsuariosModule } from './pages/usuarios/usuarios.module';
 import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { SharedModule } from '../../shared/shared.module';
 import { InscripcionesComponent } from './pages/inscripciones/inscripciones.component';
+import { HomeComponent } from './pages/home/home.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
-    InscripcionesComponent
+    InscripcionesComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

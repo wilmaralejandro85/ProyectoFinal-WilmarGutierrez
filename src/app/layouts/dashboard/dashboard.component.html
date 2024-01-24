@@ -5,17 +5,17 @@
         <p>Lorem, ipsum dolor sit amet consectetur.</p>
       }
       <div>
-        <button (click)="showFiller = !showFiller" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
+        <button (click)="PressMostrarAlumnos()" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
           Alumnos
         </button>
       </div>
       <div>
-        <button (click)="showFiller = !showFiller" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
-          Cursos
+        <button (click)="PressMostrarUsuarios()" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
+          Usuarios
         </button>
       </div>
       <div>
-        <button (click)="showFiller = !showFiller" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
+        <button (click)="PressMostrarInscripciones()" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
           Inscripciones
         </button>
       </div>
@@ -24,23 +24,33 @@
   
     <div class="example-sidenav-content">
         <mat-toolbar color="primary">
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()">
+            <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()" style="margin-right:10px">
               <mat-icon>menu</mat-icon>
             </button>
-            <span appLetra20>Proyecto Final por Wilmar Alejandro Gutierrez Ramirez</span>
+            <button mat-icon-button (click)="PressMostrarHome()" class="example-icon home-icon" aria-label="Example home icon" style="margin-right:10px">
+              <mat-icon>home</mat-icon>
+            </button>
+            <span appLetra20 style="margin-right:20px">Universidad Tecnológica de Medellín</span>
             <span class="example-spacer"></span>
-            <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-              <mat-icon>favorite</mat-icon>
-            </button>
-            <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-              <mat-icon>share</mat-icon>
-            </button>
+            <img style="margin-right:100px" src="./assets/escudoUniversidad.png" alt="" height="60" width="60">
+            <span>Proyecto Final por Wilmar Alejandro Gutierrez Ramirez</span>
+            <span class="example-spacer"></span>
+           
+           
+            
           </mat-toolbar>
-
-      <div class="p-3">
+          <div class="p-3" *ngIf="mostrarHome">
+            <app-home></app-home>
+          </div>
+      <div class="p-3" *ngIf="mostrarAlumnos">
         <app-alumnos></app-alumnos>
       </div>
-          
+      <div class="p-3" *ngIf="mostrarUsuarios">
+        <app-usuarios></app-usuarios>
+      </div>  
+      <div class="p-3" *ngIf="mostrarInscripciones">
+        <app-inscripciones></app-inscripciones>
+      </div>          
     </div>
   
   </mat-drawer-container>
