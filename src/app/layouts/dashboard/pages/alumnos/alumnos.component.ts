@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output,OnChanges } from '@angular/core';
 import { Alumnos } from './models';
 import { AlumnoPipe } from '../../../../shared/full-name.pipe';
 import { MatSnackBar } from '@angular/material/snack-bar';
-
+import { AlumnoFormComponent } from './components/alumno-form/alumno-form.component';
 @Component({
   selector: 'app-alumnos',
   templateUrl: './alumnos.component.html',
   styleUrl: './alumnos.component.scss'
 })
 export class AlumnosComponent {
-  passEdit: Alumnos | null = null;
-  
+  passEdit: any; 
+  mostrar=false;
+  alumnoAdd: Alumnos | undefined;
+  boton: any;  
+
+
+
   displayedColumns: string[] = ['id','nombreCompleto', 'edad', 'correo', 'celular', 'acciones'];
   dataSource : Alumnos[]=[
   {id: 1705884607891, nombres: 'Wilmar Alejandro', apellidos:'Gutierrez Ramirez',edad: 38, correo: 'wilmaralejandro85@hotmail.com', celular:'3184249076'},
@@ -23,12 +28,35 @@ export class AlumnosComponent {
     ];
 
     constructor( private _snackBar: MatSnackBar){
-
+      
     }
    
-    onAlumnoSubmitted(ev: Alumnos): void{
-      this.dataSource = [...this.dataSource, {...ev, id: new Date().getTime()}];
+    ngOnChanges(): void {
       
+    }
+
+    onAlumnoSubmitted(ev: Alumnos): void{
+      
+      if(ev.id==0)
+      {
+        this.dataSource = [...this.dataSource, {...ev, id: new Date().getTime()}];
+        this.mostrar=false;
+      }
+      else
+      {
+        this.dataSource = this.updateAlumno(ev);
+        this.updateList()
+        this.mostrar=false;
+      }
+      
+    }
+
+
+    onPressStudentAdd(){
+      this.mostrar=true;
+      this.passEdit = this.alumnoAdd;
+      console.log('passedit en padre',this.passEdit);
+      this.boton='Agregar';
     }
 
     deleteStudent(id: number): Alumnos[] {
@@ -53,13 +81,17 @@ export class AlumnosComponent {
       return this.dataSource
     }
 
-    updateStudent(alumnos: Alumnos) {
-      const index = this.dataSource.findIndex(el => el.id == alumnos.id)
-      this.dataSource[index] = alumnos;
+    updateAlumno(alumnos: Alumnos) {
+      const index = this.dataSource.findIndex(el => el.id == alumnos.id)     
+      this.dataSource[index] = alumnos;      
+      return this.dataSource
     }
 
     onPressStudentEdit(alumno:Alumnos) {
       this.passEdit = alumno
+      console.log(alumno);
+      this.mostrar=true;      
+      this.boton = 'Actualizar';      
     }
 
     mostrarAlerta(msg: string, accion: string) {
