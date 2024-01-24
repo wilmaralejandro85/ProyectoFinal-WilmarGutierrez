@@ -2,7 +2,7 @@
 <app-alumno-form (alumnoSubmitted)="onAlumnoSubmitted($event)" [passEdit]="passEdit" [boton]="boton" (cancelar)="recibirCancelar($event)"></app-alumno-form>
 </div>
 
-<button mat-flat-button color="primary" (click)="onPressStudentAdd()">Agregar Alumno</button>
+<button mat-flat-button color="primary" (click)="onPressStudentAdd()" style="margin-bottom:20px;">Agregar Alumno</button>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.

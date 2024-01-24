@@ -8,11 +8,13 @@ import {MatIconModule} from '@angular/material/icon';
 import { UsuariosModule } from './pages/usuarios/usuarios.module';
 import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { SharedModule } from '../../shared/shared.module';
+import { InscripcionesComponent } from './pages/inscripciones/inscripciones.component';
 
 
 @NgModule({
   declarations: [
-    DashboardComponent
+    DashboardComponent,
+    InscripcionesComponent
   ],
   imports: [
     CommonModule,

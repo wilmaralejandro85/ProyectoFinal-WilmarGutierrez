@@ -3,6 +3,7 @@ import { Alumnos } from './models';
 import { AlumnoPipe } from '../../../../shared/full-name.pipe';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlumnoFormComponent } from './components/alumno-form/alumno-form.component';
+import { AlumnosService } from '../../../../core/services/alumnos.service';
 @Component({
   selector: 'app-alumnos',
   templateUrl: './alumnos.component.html',
@@ -27,8 +28,8 @@ export class AlumnosComponent {
   
     ];
 
-    constructor( private _snackBar: MatSnackBar){
-      
+    constructor( private _snackBar: MatSnackBar, private alumnosService: AlumnosService){
+      console.log('El servicio ha sido instanciado');
     }
    
     ngOnChanges(): void {

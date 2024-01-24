@@ -9,6 +9,8 @@ import {MatButtonModule} from '@angular/material/button';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../../../shared/shared.module';
 import { MatIconModule } from '@angular/material/icon';
+import { AlumnosService } from '../../../../core/services/alumnos.service';
+import { AlumnosMockService } from '../../../../core/services/alumnos-mock.service';
 
 
 @NgModule({
@@ -26,6 +28,15 @@ import { MatIconModule } from '@angular/material/icon';
     SharedModule,
     MatIconModule
   ],
-  exports:[AlumnosComponent]
+  exports:[AlumnosComponent],
+  providers:[AlumnosService,
+    {
+      provide:'USER_TOKEN',
+      useValue: 'fdofjdsfgdsiweopgjdvjdklfjdslkfdkfjdkl',
+    },
+  
+  
+  ],
+    
 })
 export class AlumnosModule { }
