@@ -1,5 +1,5 @@
 <div class="mb-3" id="divAlumno"  *ngIf="mostrar">
-<app-alumno-form (alumnoSubmitted)="onAlumnoSubmitted($event)" [passEdit]="passEdit" [boton]="boton"></app-alumno-form>
+<app-alumno-form (alumnoSubmitted)="onAlumnoSubmitted($event)" [passEdit]="passEdit" [boton]="boton" (cancelar)="recibirCancelar($event)"></app-alumno-form>
 </div>
 
 <button mat-flat-button color="primary" (click)="onPressStudentAdd()">Agregar Alumno</button>

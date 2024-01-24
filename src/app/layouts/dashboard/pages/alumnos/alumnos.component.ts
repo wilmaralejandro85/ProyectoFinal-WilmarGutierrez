@@ -36,7 +36,7 @@ export class AlumnosComponent {
     }
 
     onAlumnoSubmitted(ev: Alumnos): void{
-      
+      console.log('submit desde padre ',this.mostrar);
       if(ev.id==0)
       {
         this.dataSource = [...this.dataSource, {...ev, id: new Date().getTime()}];
@@ -92,6 +92,12 @@ export class AlumnosComponent {
       console.log(alumno);
       this.mostrar=true;      
       this.boton = 'Actualizar';      
+    }
+
+    recibirCancelar(can:boolean): void{
+      
+      this.mostrar=false;
+      console.log('cancelar que llego al padre',can);
     }
 
     mostrarAlerta(msg: string, accion: string) {

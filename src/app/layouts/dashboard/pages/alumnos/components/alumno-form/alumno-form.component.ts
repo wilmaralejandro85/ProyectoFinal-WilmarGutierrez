@@ -13,6 +13,8 @@ export class AlumnoFormComponent  implements OnChanges {
   alumnosForm: FormGroup;  
   botonAccion:string="Agregar";
   
+  
+  botonApretar: any;
 
   @Input()  passEdit: any;
   @Input()  boton: any
@@ -22,7 +24,7 @@ export class AlumnoFormComponent  implements OnChanges {
 alumnoSubmitted = new EventEmitter();
 
 @Output()
-cancelar :any;
+  cancelar: EventEmitter<any> = new EventEmitter();
 
   constructor(private fb: FormBuilder, private _snackBar: MatSnackBar){
 
@@ -72,10 +74,11 @@ cancelar :any;
 
   onSubmit(): void {
 
-    console.log('boton cancelar hijo1',this.cancelar);
+    console.log('submit cancelar hijo',this.botonApretar);
 
-    if(this.cancelar == true)
+    if(this.botonApretar==true)
     {
+      this.cancelar.emit(this.botonApretar);
       this.alumnosForm.reset();
       this.mostrarAlerta("Se ha cancelado la operación","Bien!");
     }
@@ -98,8 +101,8 @@ cancelar :any;
   }
 
   onPressCancelar(cancelar1:boolean){
-    this.cancelar=cancelar1;
-    console.log('boton cancelar hijo',this.cancelar);
+    this.botonApretar = true;
+    console.log('boton cancelar hijo',this.botonApretar);
   }
  
   mostrarAlerta(msg: string, accion: string) {
