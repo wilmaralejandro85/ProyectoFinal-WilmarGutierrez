@@ -10,13 +10,21 @@ import { AlumnosModule } from './pages/alumnos/alumnos.module';
 import { SharedModule } from '../../shared/shared.module';
 import { InscripcionesComponent } from './pages/inscripciones/inscripciones.component';
 import { HomeComponent } from './pages/home/home.component';
-
+import { CursosComponent } from './pages/cursos/cursos.component';
+import { CursosModule } from './pages/cursos/cursos.module';
+import { HomeModule } from './pages/home/home.module';
+import { InscripcionesModule } from './pages/inscripciones/inscripciones.module';
+import { RouterModule } from '@angular/router';
+import { AlumnosComponent } from './pages/alumnos/alumnos.component';
+import { UsuariosComponent } from './pages/usuarios/usuarios.component';
+import {MatListModule} from '@angular/material/list';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { NotFoundComponent } from '../not-found/not-found.component';
 
 @NgModule({
   declarations: [
-    DashboardComponent,
-    InscripcionesComponent,
-    HomeComponent
+    DashboardComponent
+    
   ],
   imports: [
     CommonModule,
@@ -26,8 +34,47 @@ import { HomeComponent } from './pages/home/home.component';
     MatIconModule,
    UsuariosModule,
    AlumnosModule,
-   SharedModule
+   SharedModule,
+   CursosModule,
+   HomeModule,
+   InscripcionesModule,
+   RouterModule,
+   MatListModule,
+   MatDatepickerModule,
+   RouterModule.forChild([
+    {
+      path: 'alumnos',
+      component: AlumnosComponent
+    },
+    {
+      path: 'cursos',
+      loadChildren:() => 
+      import('./pages/cursos/cursos.module').then((m)=> m.CursosModule),
+      
+    },
+    {
+      path: 'inscripciones',
+      component: InscripcionesComponent
+    },
+    {
+      path: 'usuarios',
+      component: UsuariosComponent
+    },
+    {
+      path: 'home',
+      component: HomeComponent
+    },    
+    {
+      path: '404',
+      component: NotFoundComponent
+    },
+    {
+      path: '**',
+      redirectTo: '/404'
+    },
 
+   
+  ]),
   ],
   exports:[DashboardComponent]
 })

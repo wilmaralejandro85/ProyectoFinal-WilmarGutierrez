@@ -1,25 +1,53 @@
 <mat-drawer-container class="dashboard-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
+    <mat-drawer #drawer class="dashboard-sidebar" mode="side">
       <p style="margin-top:20px;margin-left:20px;;margin-right:20px" appLetra20>Menu Principal</p>
-      @if (showFiller) {
-        <p>Lorem, ipsum dolor sit amet consectetur.</p>
-      }
-      <div>
-        <button (click)="PressMostrarAlumnos()" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
-          Alumnos
-        </button>
-      </div>
-      <div>
-        <button (click)="PressMostrarUsuarios()" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
-          Usuarios
-        </button>
-      </div>
-      <div>
-        <button (click)="PressMostrarInscripciones()" mat-raised-button color="accent" style="margin-top:20px;margin-left:20px;;margin-right:20px">
-          Inscripciones
-        </button>
-      </div>
-      
+    
+      <mat-nav-list>
+        <a 
+        #homeLink="routerLinkActive"
+        routerLinkActive
+        [activated]="homeLink.isActive"
+        routerLink="home" 
+        mat-list-item
+        >Inicio</a>
+        <a 
+        #alumnosLink="routerLinkActive"
+        routerLinkActive
+        [activated]="alumnosLink.isActive"
+        routerLink="alumnos" 
+        mat-list-item
+        
+        >Alumnos</a>
+        <a 
+        #cursosLink="routerLinkActive"
+        routerLinkActive
+        [activated]="cursosLink.isActive"
+        routerLink="cursos" 
+        mat-list-item
+        >Cursos</a>
+        <a 
+        #inscripcionesLink="routerLinkActive"
+        routerLinkActive
+        [activated]="inscripcionesLink.isActive"
+        routerLink="inscripciones" 
+        mat-list-item
+        >Inscripciones</a>
+        <a 
+        #usuariosLink="routerLinkActive"
+        routerLinkActive
+        [activated]="usuariosLink.isActive"
+        routerLink="usuarios" 
+        mat-list-item
+        >Usuarios</a>
+        <a 
+        #logOutLink="routerLinkActive"
+        routerLinkActive
+        [activated]="logOutLink.isActive"
+        (click)="Logout()" 
+        mat-list-item
+        >Cerrar Sesion</a>
+      </mat-nav-list>
+        
     </mat-drawer>
   
     <div class="example-sidenav-content">
@@ -27,7 +55,7 @@
             <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="drawer.toggle()" style="margin-right:10px">
               <mat-icon>menu</mat-icon>
             </button>
-            <button mat-icon-button (click)="PressMostrarHome()" class="example-icon home-icon" aria-label="Example home icon" style="margin-right:10px">
+            <button mat-icon-button class="example-icon home-icon" aria-label="Example home icon" style="margin-right:10px">
               <mat-icon>home</mat-icon>
             </button>
             <span appLetra20 style="margin-right:20px">Universidad Tecnológica de Medellín</span>
@@ -39,18 +67,7 @@
            
             
           </mat-toolbar>
-          <div class="p-3" *ngIf="mostrarHome">
-            <app-home></app-home>
-          </div>
-      <div class="p-3" *ngIf="mostrarAlumnos">
-        <app-alumnos></app-alumnos>
-      </div>
-      <div class="p-3" *ngIf="mostrarUsuarios">
-        <app-usuarios></app-usuarios>
-      </div>  
-      <div class="p-3" *ngIf="mostrarInscripciones">
-        <app-inscripciones></app-inscripciones>
-      </div>          
+          <router-outlet></router-outlet>
     </div>
   
   </mat-drawer-container>

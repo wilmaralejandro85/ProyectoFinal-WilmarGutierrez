@@ -1,1 +1,69 @@
-<p>cursos works!</p>
+<div style="margin-top:30px;margin-left: 30px;">
+<div class="mb-3" id="divCurso"  *ngIf="mostrar">
+    <app-curso-form (cursoSubmitted)="onCursoSubmitted($event)" [passEdit]="passEdit" [boton]="boton" (cancelar)="recibirCancelar($event)"></app-curso-form>
+    </div>
+    
+    <button mat-flat-button color="primary" (click)="onPressCursoAdd()" style="margin-bottom:20px;">Agregar Curso</button>
+    <table mat-table [dataSource]="cursos" class="mat-elevation-z8">
+    
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef appLetra20> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+      
+         <!-- Name Column -->
+         <ng-container matColumnDef="nombreCurso">
+            <th mat-header-cell *matHeaderCellDef appLetra20> Nombre</th>
+            <td mat-cell *matCellDef="let element"> {{element.nombreCurso | uppercase}} </td>
+          </ng-container>
+    
+       
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="descripcionCurso">
+          <th mat-header-cell *matHeaderCellDef appLetra20> Descripcion</th>
+          <td mat-cell *matCellDef="let element"> {{element.descripcionCurso}} </td>
+        </ng-container>
+      
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="horario">
+            <th mat-header-cell *matHeaderCellDef appLetra20> Horario </th>
+            <td mat-cell *matCellDef="let element"> {{element.horario}} </td>
+          </ng-container>
+
+        
+
+         <ng-container matColumnDef="fechaInicio">
+            <th mat-header-cell *matHeaderCellDef appLetra20> Fecha Inicio </th>
+            <td mat-cell *matCellDef="let element"> {{element.fechaInicio | date: 'dd/MM/yyyy HH:mm'}} </td>
+          </ng-container>
+    
+           <!-- Symbol Column -->
+        <ng-container matColumnDef="costoCurso">
+            <th mat-header-cell *matHeaderCellDef appLetra20> Costo </th>
+            <td mat-cell *matCellDef="let element"> {{element.costoCurso}} </td>
+          </ng-container>
+    
+           <!-- Acciones Column -->
+           <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="width: 150px;"></th>
+            <td mat-cell *matCellDef="let element">
+              
+              <button mat-icon-button color="primary" (click)="onPressCursoEdit(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+    
+              <button mat-icon-button color="warn" (click)="onCursoDelete(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>

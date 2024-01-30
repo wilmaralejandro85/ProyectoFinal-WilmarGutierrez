@@ -1,0 +1,44 @@
+<form [formGroup]="cursoForm" (ngSubmit)="onSubmit()" class="grid formgrid">
+    <div class="col-6">
+      <mat-form-field class="w-full">
+        <mat-label>Id</mat-label>
+        <input formControlName="id" matInput type="text" readonly>   
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+    <mat-form-field class="w-full">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="nombreCurso" matInput type="text">   
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field class="w-full">
+        <mat-label>Descripcion</mat-label>
+        <input formControlName="descripcionCurso" matInput type="text">   
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field class="w-full">
+        <mat-label>Fecha Inicio</mat-label>
+        <input formControlName="fechaInicio" matInput type="text">   
+      </mat-form-field>
+    </div>
+   
+    <div class="col-6">
+        <mat-form-field class="w-full">
+          <mat-label>Horario</mat-label>
+          <input formControlName="horario" matInput type="text">   
+        </mat-form-field>
+      </div>
+    <div class="col-6">
+      <mat-form-field class="w-full">
+        <mat-label>Costo</mat-label>
+        <input formControlName="costoCurso" matInput type="text">   
+      </mat-form-field>
+    </div>
+    <div class="col-12 flex justify-content-end">
+      <button mat-flat-button color="warn" (click)="onPressCancelar(true)" style="margin-right:20px">Cancelar</button>
+        <button mat-flat-button color="primary"> {{botonAccion}}</button>
+    </div>
+    
+    </form>
