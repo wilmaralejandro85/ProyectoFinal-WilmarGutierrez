@@ -1,3 +1,51 @@
 <div style="margin-top:30px;margin-left: 30px;">
-<p>inscripciones works!</p>
-</div>
+    <div class="mb-3" id="divInscripcion"  *ngIf="mostrar">
+        <app-inscripcion-form (inscripcionSubmitted)="onInscripcionSubmitted($event)" [passEdit]="passEdit" [boton]="boton" (cancelar)="recibirCancelar($event)"></app-inscripcion-form>
+    </div>
+    
+    <button mat-flat-button color="primary" (click)="onPressInscripcionAdd()" style="margin-bottom:20px;">Agregar Inscripcion</button>
+    <table mat-table [dataSource]="inscripcion" class="mat-elevation-z8">
+    
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+      
+        <!-- Position Column -->
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef appLetra20> No. </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+      
+          <!-- Name Column -->
+          <ng-container matColumnDef="alumno">
+            <th mat-header-cell *matHeaderCellDef appLetra20> Alumno </th>
+            <td mat-cell *matCellDef="let element"> {{element.alumno | uppercase }} </td>
+          </ng-container>
+          
+         <!-- Symbol Column -->
+         <ng-container matColumnDef="curso">
+            <th mat-header-cell *matHeaderCellDef appLetra20> Curso </th>
+            <td mat-cell *matCellDef="let element"> {{element.curso | uppercase}} </td>
+          </ng-container>
+
+       
+    
+       
+           <!-- Acciones Column -->
+           <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="width: 150px;"></th>
+            <td mat-cell *matCellDef="let element">
+              
+              <button mat-icon-button color="primary" (click)="onPressInscripcionEdit(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+    
+              <button mat-icon-button color="warn" (click)="onInscripcionDelete(element.id)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+    
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
