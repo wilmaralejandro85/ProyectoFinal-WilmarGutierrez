@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,11 +11,10 @@ export class DashboardComponent {
   showFiller = false;
   
 
-  constructor(private router: Router, private route: ActivatedRoute){}
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService){}
 
   Logout(): void {
-    localStorage.removeItem('access-token');
-    this.router.navigate(['auth','login']);
+    this.authService.logout();
   }
 
  

@@ -8,16 +8,19 @@ import { NotFoundComponent } from './layouts/not-found/not-found.component';
 import { CursosComponent } from './layouts/dashboard/pages/cursos/cursos.component';
 import { InscripcionesComponent } from './layouts/dashboard/pages/inscripciones/inscripciones.component';
 import { UsuariosComponent } from './layouts/dashboard/pages/usuarios/usuarios.component';
+import { authGuard } from './core/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: 'dashboard',
+    canActivate: [authGuard],
     component: DashboardComponent,
     loadChildren:() => import('./layouts/dashboard/dashboard.module').then((m)=> m.DashboardModule)
   },
   {
-    path: 'auth/login',
-    component: LoginComponent,
+    path: 'auth',
+    loadChildren:() =>
+    import('./layouts/auth/auth.module').then((m) => m.AuthModule),    
   },
   {
     path: '404',

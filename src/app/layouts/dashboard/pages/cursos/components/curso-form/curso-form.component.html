@@ -20,7 +20,10 @@
     <div class="col-6">
       <mat-form-field class="w-full">
         <mat-label>Fecha Inicio</mat-label>
-        <input formControlName="fechaInicio" matInput type="text">   
+        <input formControlName="fechaInicio" matInput [matDatepicker]="fechaInicioPicker" >
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="fechaInicioPicker"></mat-datepicker-toggle>
+        <mat-datepicker #fechaInicioPicker></mat-datepicker>
       </mat-form-field>
     </div>
    

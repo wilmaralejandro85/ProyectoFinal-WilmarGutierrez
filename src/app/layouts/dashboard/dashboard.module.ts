@@ -20,6 +20,7 @@ import { UsuariosComponent } from './pages/usuarios/usuarios.component';
 import {MatListModule} from '@angular/material/list';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { NotFoundComponent } from '../not-found/not-found.component';
+import { adminGuard } from '../../core/guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,9 @@ import { NotFoundComponent } from '../not-found/not-found.component';
     },
     {
       path: 'usuarios',
-      component: UsuariosComponent
+      canActivate: [adminGuard],
+      loadChildren:() => 
+      import('./pages/usuarios/usuarios.module').then((m)=> m.UsuariosModule),
     },
     {
       path: 'home',
