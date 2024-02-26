@@ -1,1 +1,44 @@
-<p>usuario-form works!</p>
+<form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()" class="grid formgrid">
+    <div class="col-6">
+      <mat-form-field class="w-full">
+        <mat-label>Id</mat-label>
+        <input formControlName="id" matInput type="text" readonly>   
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field class="w-full">
+        <mat-label>Nombres</mat-label>
+        <input formControlName="nombres" matInput type="text">   
+      </mat-form-field>
+    </div>
+    <div class="col-6">
+      <mat-form-field class="w-full">
+          <mat-label>Apellidos</mat-label>
+          <input formControlName="apellidos" matInput type="text">   
+        </mat-form-field>
+      </div>
+      <div class="col-6">
+        <mat-form-field class="w-full">
+            <mat-label>Correo</mat-label>
+            <input formControlName="correo" matInput type="text">   
+          </mat-form-field>
+        </div>
+        <div class="col-6">
+            <mat-form-field class="w-full">
+                <mat-label>Password</mat-label>
+                <input formControlName="password" matInput type="text">   
+              </mat-form-field>
+            </div>
+            <div class="col-6">
+                <mat-form-field class="w-full">
+                    <mat-label>Rol</mat-label>
+                    <input formControlName="rol" matInput type="text">   
+                  </mat-form-field>
+                </div>
+   
+    <div class="col-12 flex justify-content-end">
+      <button mat-flat-button color="warn" (click)="onPressCancelar(true)" style="margin-right:20px">Cancelar</button>
+        <button mat-flat-button color="primary"> {{botonAccion}}</button>
+    </div>
+    
+    </form>

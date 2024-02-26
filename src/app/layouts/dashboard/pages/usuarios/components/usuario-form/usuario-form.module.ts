@@ -10,6 +10,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { Observable, startWith, map } from 'rxjs';
 
 
+
 @NgModule({
   declarations: [],
   imports: [
@@ -23,9 +24,4 @@ import { Observable, startWith, map } from 'rxjs';
     AsyncPipe,
   ]
 })
-export class InscripcionFormModule {
-    
-  
-   
-
-}
+export class UsuarioFormModule { }

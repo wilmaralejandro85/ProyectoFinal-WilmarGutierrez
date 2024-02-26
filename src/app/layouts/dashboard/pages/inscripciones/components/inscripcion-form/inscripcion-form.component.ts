@@ -1,20 +1,30 @@
-import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnChanges, SimpleChanges,OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Inscripcion } from '../../models';
 import { Observable } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {map, startWith} from 'rxjs/operators';
+import {AsyncPipe} from '@angular/common';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { InscripcionesService } from '../../inscripciones.service';
+import { CursosService } from '../../../cursos/cursos.service';
+import { Cursos } from '../../../cursos/models';
 
 @Component({
   selector: 'app-inscripcion-form',
   templateUrl: './inscripcion-form.component.html',
-  styleUrl: './inscripcion-form.component.scss'
+  styleUrl: './inscripcion-form.component.scss'  
 })
 export class InscripcionFormComponent implements OnChanges {
 
   inscripcionForm: FormGroup;  
-  botonAccion:string="Agregar";
-  
-  
+  botonAccion:string="Agregar";    
+  filteredCursos: Observable<string[]> | undefined;
+  curso: Cursos[] =[];
+
   botonApretar: any;
 
   @Input()  passEdit: any;
@@ -27,7 +37,7 @@ inscripcionSubmitted = new EventEmitter();
 @Output()
   cancelar: EventEmitter<any> = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar){
+  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private cursosService: CursosService){
 
     this.inscripcionForm = this.fb.group({
       id: this.fb.control(0, Validators.required),
@@ -36,7 +46,11 @@ inscripcionSubmitted = new EventEmitter();
       
     });
 
-    
+    this.cursosService.getCursos().subscribe({
+      next: (curso) => {
+        this.curso = curso;
+      }
+    });
   }
 
   ngOnChanges(): void {
@@ -108,4 +122,7 @@ inscripcionSubmitted = new EventEmitter();
       duration: 3000
     });
   }
+
+  
+ 
 }
