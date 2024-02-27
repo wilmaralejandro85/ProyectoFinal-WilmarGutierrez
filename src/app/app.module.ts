@@ -7,6 +7,7 @@ import { DashboardModule } from './layouts/dashboard/dashboard.module';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import { MatNativeDateModule } from '@angular/material/core';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     AppComponent
@@ -17,7 +18,8 @@ import { MatNativeDateModule } from '@angular/material/core';
     BrowserAnimationsModule,
     DashboardModule,
     MatProgressSpinnerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    HttpClientModule
     
   ],
   providers: [

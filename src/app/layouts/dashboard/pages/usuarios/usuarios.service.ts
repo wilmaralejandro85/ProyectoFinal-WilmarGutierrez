@@ -1,28 +1,17 @@
 import { Injectable } from "@angular/core";
 import { of } from "rxjs";
 import { Usuarios } from "./models";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 export class UsuariosService {
+  constructor(private httpClient: HttpClient){}
+    usuarios : Usuarios[]=[];
 
     getUsuarios(){
-        return of<Usuarios[]>([
-            {
-                id: 1,
-                nombres: 'Wilmar',
-                apellidos: 'Gutierrez',
-                correo: 'wilmar@email.com',
-                password: '12345',
-                rol: 'ADMIN'
-              },
-              {
-                id: 2,
-                nombres: 'Carlos',
-                apellidos: 'Arango',
-                correo: 'carlos@email.com',
-                password: '54321',
-                rol: 'USER'
-              }
-        ])
+      
+      
+       return this.httpClient.get<Usuarios[]>('http://localhost:3000/usuarios');
+       
     }
 }

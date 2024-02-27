@@ -15,12 +15,14 @@ export class AuthService {
 
     authUser: Usuarios | null = null
     usuarios: Usuarios[] =[];
+    usuarios2: Usuarios[] =[];
 
     constructor(private router:Router,  private _snackBar: MatSnackBar, private usuariosService: UsuariosService){
 
         this.usuariosService.getUsuarios().subscribe({
             next: (usuarios) => {
               this.usuarios = usuarios;
+              
             },
         })
     }
@@ -29,21 +31,14 @@ export class AuthService {
 
     login(data: LoginData): void {
 
+        const dataSourceFiltered = this.usuarios.filter(us => us.correo == data.email && us.password == data.password)
+        this.usuarios2 = [...dataSourceFiltered];
+        console.log("usuarios: ", this.usuarios);
+        console.log(this.usuarios2);
        
-
-        const MOCK_USER = {
-            id: 48,
-            nombres: 'FAKENAME',
-            apellidos: 'FAKENAME',
-            correo: 'test@mail.com',
-            password: '12345',
-            rol: 'ADMIN'
-        };
-
-
         
-        if(data.email == MOCK_USER.correo && data.password === MOCK_USER.password){
-            this.authUser = MOCK_USER;
+        if(data.email == this.usuarios2[0].correo && data.password === this.usuarios2[0].password){
+            this.authUser = this.usuarios2[0];
             localStorage.setItem('token', 'fdfdsjkfhkdsfhdsfhdsjkfhsdljkfdksfhkdjsfhdsfjkdsfhdjksf');
             this.router.navigate(['dashboard', 'home']);
         }
