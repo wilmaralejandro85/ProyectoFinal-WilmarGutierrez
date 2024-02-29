@@ -18,12 +18,11 @@
     },
     {
       "id": "1709175793661",
-      "nombres": "beatr",
-      "apellidos": "ramir",
-      "correo": "beatriz@email.c",
+      "nombres": "beatriz",
+      "apellidos": "ramirez",
+      "correo": "beatriz@email.com",
       "password": "12345",
-      "rol": "ADMI"
+      "rol": "ADMIN"
     }
-  ],
-  "cursos": []
+  ]
 }
