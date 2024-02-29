@@ -27,7 +27,6 @@ export class AuthService {
         })
     }
 
-   
 
     login(data: LoginData): void {
 

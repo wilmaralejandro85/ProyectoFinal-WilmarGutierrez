@@ -1,6 +1,6 @@
 export interface Usuarios{
 
-    id: number;
+    id: string;
     nombres:string;
     apellidos: string;
     correo: string;

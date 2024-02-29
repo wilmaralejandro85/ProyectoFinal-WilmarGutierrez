@@ -1,23 +1,29 @@
 {
-    "usuarios": [
-
-        {
-            "id": 1,
-            "nombres": "Wilmar",
-            "apellidos": "Gutierrez",
-            "correo": "wilmar@email.com",
-            "password": "12345",
-            "rol": "ADMIN"
-          },
-          {
-            "id": 2,
-            "nombres": "Carlos",
-            "apellidos": "Arango",
-            "correo": "carlos@email.com",
-            "password": "54321",
-            "rol": "USER"
-          }
-
-    ],
-    "cursos": []
+  "Usuarios": [
+    {
+      "id": "1709174481396",
+      "nombres": "wilmar",
+      "apellidos": "gutierrez",
+      "correo": "wilmar@email.com",
+      "password": "12345",
+      "rol": "ADMIN"
+    },
+    {
+      "id": "1709175024956",
+      "nombres": "carlos",
+      "apellidos": "fernandez",
+      "correo": "carlos@email.com",
+      "password": "12345",
+      "rol": "USER"
+    },
+    {
+      "id": "1709175793661",
+      "nombres": "beatr",
+      "apellidos": "ramir",
+      "correo": "beatriz@email.c",
+      "password": "12345",
+      "rol": "ADMI"
+    }
+  ],
+  "cursos": []
 }

@@ -20,6 +20,15 @@ export class UsuariosComponent {
 
   constructor( private _snackBar: MatSnackBar, private usuariosService: UsuariosService){
    
+    this.listarUsuarios();
+
+  }
+
+  ngOnChanges(): void {
+      
+  }
+
+  listarUsuarios() : void {
     this.usuariosService.getUsuarios().subscribe({
       next: (usuarios) => {
         this.usuarios = usuarios;
@@ -30,26 +39,34 @@ export class UsuariosComponent {
         
       }
     })
-
   }
 
-  ngOnChanges(): void {
-      
-  }
 
-  onUsuarioSubmitted(ev: Usuarios): void{
-    console.log('submit desde padre ',this.mostrar);
-    if(ev.id==0)
+  onUsuarioSubmitted(ev: Usuarios): void{   
+    if(ev.id=="0")
     {
+      this.usuariosService
+      .createUsuarios({...ev, id: new Date().getTime().toString()})
+      .subscribe({
+        next: (usuarios: any) => {
+          this.usuarios = [...usuarios];
+        },
+      });
       
-      this.usuarios = [...this.usuarios, {...ev, id: new Date().getTime()}];
-      console.log('lista usuario',this.usuarios)
       this.mostrar=false;
     }
     else
     {
-      this.usuarios = this.updateUsuario(ev);
-      this.updateList()
+
+      this.usuariosService
+      .updateUsuario(ev.id,ev)
+      .subscribe({
+        next: (usuarios: any) => {
+          this.usuarios = [...usuarios];
+        },
+      });
+
+      
       this.mostrar=false;
     }
     
@@ -63,7 +80,8 @@ export class UsuariosComponent {
     this.boton='Agregar';
   }
 
-  deleteUsuario(id: number): Usuarios[] {
+  deleteUsuario(id: string): Usuarios[] {
+    
     const dataSourceFiltered = this.usuarios.filter(el => el.id != id)
     this.usuarios = [...dataSourceFiltered];
     return this.usuarios
@@ -75,9 +93,17 @@ export class UsuariosComponent {
     
   }
 
-  onUsuarioDelete(id: number): void {
-    this.deleteUsuario(id);
-    this.updateList()
+  onUsuarioDelete(id: string): void {
+    console.log('usuario a eliminar',id);
+    this.usuariosService
+    .deleteUsuario(id)
+    .subscribe({
+      next: (usuarios: any) => {
+        this.usuarios = [...usuarios];
+      },
+    });
+    console.log('usuario con eliminacion', this.usuarios);    
+    this.listarUsuarios();
     this.mostrarAlerta("El Usuario fue eliminado con exito","Bien!");
   }
 

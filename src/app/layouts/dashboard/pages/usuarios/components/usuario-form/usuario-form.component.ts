@@ -12,6 +12,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { UsuariosService } from '../../usuarios.service';
 import { CursosService } from '../../../cursos/cursos.service';
 import { Cursos } from '../../../cursos/models';
+import { UsuariosComponent } from '../../usuarios.component';
 
 @Component({
   selector: 'app-usuario-form',
@@ -37,7 +38,7 @@ usuarioSubmitted = new EventEmitter();
 @Output()
   cancelar: EventEmitter<any> = new EventEmitter();
 
-  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private usuariosService: UsuariosService){
+  constructor(private fb: FormBuilder, private _snackBar: MatSnackBar, private usuariosService: UsuariosService, private usuarios: UsuariosComponent){
 
     this.usuarioForm = this.fb.group({
       id: this.fb.control(0, Validators.required),
@@ -107,11 +108,12 @@ usuarioSubmitted = new EventEmitter();
       } else if (this.usuarioForm.value.id == 0) {      
         this.usuarioSubmitted.emit(this.usuarioForm.value);
         this.usuarioForm.reset();
-        this.mostrarAlerta("La inscripción fue creada con exito","Bien!");
+        this.mostrarAlerta("El usuario fue creado con exito","Bien!");
       } else {     
         this.usuarioSubmitted.emit(this.usuarioForm.value);
         this.usuarioForm.reset();
-        this.mostrarAlerta("La inscripción fue actualizada con exito","Bien!");
+        this.usuarios.listarUsuarios();
+        this.mostrarAlerta("El usuario fue actualizado con exito","Bien!");
       }
     }
     
