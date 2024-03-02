@@ -4,6 +4,8 @@ import { AlumnosService } from '../../../../core/services/alumnos.service';
 import { Cursos } from '../cursos/models';
 import { CursosService } from './cursos.service';
 import { LoadingService } from '../../../../core/services/loading.service';
+import { Store } from '@ngrx/store';
+import { CursosActions } from './store/cursos.actions';
 
 @Component({
   selector: 'app-cursos',
@@ -20,8 +22,20 @@ export class CursosComponent {
 
   cursos: Cursos[] =[];
 
-    constructor( private _snackBar: MatSnackBar, private cursosService: CursosService, private loadingService: LoadingService){
-      this.loadingService.setIsLoading(true);
+    constructor( private _snackBar: MatSnackBar, private cursosService: CursosService, private store: Store){
+     
+      this.listarCursos();
+      this.store.dispatch(CursosActions.loadCursoss());
+    }
+   
+
+   
+
+    ngOnChanges(): void {
+      
+    }
+
+    listarCursos() : void {
       this.cursosService.getCursos().subscribe({
         next: (cursos) => {
           this.cursos = cursos;
@@ -29,32 +43,38 @@ export class CursosComponent {
         complete: () => {
           const delay = 1000;
           
-          this.loadingService.setIsLoading(false);
+          
         }
       })
-
     }
-   
-    ngOnChanges(): void {
-      
-    }
-
     onCursoSubmitted(ev: Cursos): void{
-      console.log('submit desde padre ',this.mostrar);
-      if(ev.id==0)
+      
+      if(ev.id=="0")
       {
+        this.cursosService
+        .createCursos({...ev, id: new Date().getTime().toString()})
+        .subscribe({
+          next: (cursos: any) => {
+            this.cursos = [...cursos];
+          },
+        });
         
-        this.cursos = [...this.cursos, {...ev, id: new Date().getTime()}];
-        console.log('lista curso',this.cursos)
         this.mostrar=false;
       }
       else
       {
-        this.cursos = this.updateCurso(ev);
-        this.updateList()
+  
+        this.cursosService
+        .updateCurso(ev.id,ev)
+        .subscribe({
+          next: (cursos: any) => {
+            this.cursos = [...cursos];
+          },
+        });
+  
+        
         this.mostrar=false;
       }
-      
     }
 
     
@@ -67,7 +87,7 @@ export class CursosComponent {
       this.boton='Agregar';
     }
 
-    deleteCurso(id: number): Cursos[] {
+    deleteCurso(id: string): Cursos[] {
       const dataSourceFiltered = this.cursos.filter(el => el.id != id)
       this.cursos = [...dataSourceFiltered];
       return this.cursos
@@ -79,10 +99,19 @@ export class CursosComponent {
       
     }
 
-    onCursoDelete(id: number): void {
-      this.deleteCurso(id);
-      this.updateList()
-      this.mostrarAlerta("Curso fue eliminado con exito","Bien!");
+    onCursoDelete(id: string): void {
+     
+      console.log('curso a eliminar',id);
+      this.cursosService
+      .deleteCurso(id)
+      .subscribe({
+        next: (cursos: any) => {
+          this.cursos = [...cursos];
+        },
+      });
+      console.log('curso con eliminacion', this.cursos);    
+      this.listarCursos();
+      this.mostrarAlerta("El Curso fue eliminado con exito","Bien!");
     }
 
     getAllCursos() {

@@ -4,6 +4,8 @@ import { Router } from '@angular/router'
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { of, delay,map } from 'rxjs';
 import { UsuariosService } from '../dashboard/pages/usuarios/usuarios.service';
+import { Store } from '@ngrx/store';
+import { AuthActions } from '../../core/store/auth/actions';
 
 interface LoginData {
      email: null | string;
@@ -17,7 +19,9 @@ export class AuthService {
     usuarios: Usuarios[] =[];
     usuarios2: Usuarios[] =[];
 
-    constructor(private router:Router,  private _snackBar: MatSnackBar, private usuariosService: UsuariosService){
+    constructor(private router:Router,  private _snackBar: MatSnackBar, private usuariosService: UsuariosService, private store: Store){
+
+
 
         this.usuariosService.getUsuarios().subscribe({
             next: (usuarios) => {
@@ -25,8 +29,16 @@ export class AuthService {
               
             },
         })
+        
     }
 
+
+    private setAuthUser(user: Usuarios): void {
+      this.authUser = user;
+      console.log('usuario logueado 1',this.authUser);
+      this.store.dispatch(AuthActions.setAuthUser({user}));
+
+    }
 
     login(data: LoginData): void {
 
@@ -38,6 +50,8 @@ export class AuthService {
         
         if(data.email == this.usuarios2[0].correo && data.password === this.usuarios2[0].password){
             this.authUser = this.usuarios2[0];
+            this.setAuthUser(this.usuarios2[0]);
+           
             localStorage.setItem('token', 'fdfdsjkfhkdsfhdsfhdsjkfhsdljkfdksfhkdjsfhdsfjkdsfhdjksf');
             this.router.navigate(['dashboard', 'home']);
         }

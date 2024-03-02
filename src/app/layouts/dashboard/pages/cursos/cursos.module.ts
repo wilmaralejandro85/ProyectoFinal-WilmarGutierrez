@@ -12,6 +12,11 @@ import { MatIconModule } from '@angular/material/icon';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { CursosRoutingModule } from './cursos-routing.module';
 import { CursosService } from './cursos.service';
+import { EffectsModule } from '@ngrx/effects';
+import { CursosEffects } from './store/cursos.effects';
+import { StoreModule } from '@ngrx/store';
+import { cursosFeature } from './store/cursos.reducer';
+
 
 
 @NgModule({
@@ -29,7 +34,9 @@ import { CursosService } from './cursos.service';
     SharedModule,
     MatIconModule,
     MatDatepickerModule,
-    CursosRoutingModule
+    CursosRoutingModule,
+    EffectsModule.forFeature([CursosEffects]),
+    StoreModule.forFeature(cursosFeature),
   ],
   exports:[CursosComponent],
   providers:[CursosService]
